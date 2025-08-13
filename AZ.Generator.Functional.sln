@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36408.4 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AZ.Generator.Functional", "src\AZ.Generator.Functional\AZ.Generator.Functional.csproj", "{DA6C591D-E4CC-4466-B4A1-280230C9C78C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DA6C591D-E4CC-4466-B4A1-280230C9C78C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA6C591D-E4CC-4466-B4A1-280230C9C78C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA6C591D-E4CC-4466-B4A1-280230C9C78C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA6C591D-E4CC-4466-B4A1-280230C9C78C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6664F0B8-B9D2-46DA-B542-E71C2889C1D5}
+	EndGlobalSection
+EndGlobal

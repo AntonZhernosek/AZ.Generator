@@ -1,0 +1,23 @@
+﻿{
+  Diagnostics: [
+    {
+      Location: /*
+
+public class ContainingType
+             ^^^^^^^^^^^^^^
+{
+*/
+ : (4,13)-(4,27),
+      Message: Private class ContainingType is marked as a discriminated union inside of a containing type, and all containing types should be partial,
+      Severity: Error,
+      Descriptor: {
+        Id: DU0004,
+        Title: Containing type is not partial,
+        MessageFormat: Private class {0} is marked as a discriminated union inside of a containing type, and all containing types should be partial,
+        Category: Discriminated Union,
+        DefaultSeverity: Error,
+        IsEnabledByDefault: true
+      }
+    }
+  ]
+}

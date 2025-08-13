@@ -1,0 +1,22 @@
+﻿{
+  Diagnostics: [
+    {
+      Location: /*
+[DiscriminatedUnion]
+public abstract class TestUnion;
+                      ^^^^^^^^^
+*/
+ : (5,22)-(5,31),
+      Message: Class TestUnion is marked as a discriminated union, but has no implementations,
+      Severity: Error,
+      Descriptor: {
+        Id: DU0002,
+        Title: Type has no implementations,
+        MessageFormat: Class {0} is marked as a discriminated union, but has no implementations,
+        Category: Discriminated Union,
+        DefaultSeverity: Error,
+        IsEnabledByDefault: true
+      }
+    }
+  ]
+}

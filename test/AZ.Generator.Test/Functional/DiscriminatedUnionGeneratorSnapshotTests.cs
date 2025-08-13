@@ -289,4 +289,84 @@ public sealed class DiscriminatedUnionGeneratorSnapshotTests
 	}
 
 	#endregion
+
+	#region Diagnostics
+
+	[Fact]
+	public async Task Generate_IsNotAbstract_ProducesDiagnostics()
+	{
+		var code =
+			"""
+			using AZ.Generator.Functional.Attributes;
+
+			namespace Foo.Bar.Baz;
+
+			[DiscriminatedUnion]
+			public class TestUnion;
+			public sealed class TestImplementation1 : TestUnion;
+			public sealed class TestImplementation2 : TestUnion;
+			""";
+
+		await TestHelper.RecompileGeneratedVerify<DiscriminatedUnionGenerator>(code);
+	}
+
+	[Fact]
+	public async Task Generate_HasNoImplementations_ProducesDiagnostics()
+	{
+		var code =
+			"""
+			using AZ.Generator.Functional.Attributes;
+
+			namespace Foo.Bar.Baz;
+
+			[DiscriminatedUnion]
+			public abstract class TestUnion;
+			""";
+
+		await TestHelper.RecompileGeneratedVerify<DiscriminatedUnionGenerator>(code);
+	}
+
+	[Fact]
+	public async Task Generate_IsNotPartial_ProducesDiagnostics()
+	{
+		var code =
+			"""
+			using AZ.Generator.Functional.Attributes;
+			
+			namespace Foo.Bar.Baz;
+			
+			public partial class ContainingType
+			{
+				[DiscriminatedUnion]
+				private abstract class NestedUnion;
+			
+				private sealed class NestedImplementation : NestedUnion;
+			}
+			""";
+
+		await TestHelper.RecompileGeneratedVerify<DiscriminatedUnionGenerator>(code);
+	}
+
+	[Fact]
+	public async Task Generate_IsNotPartialContainingType_ProducesDiagnostics()
+	{
+		var code =
+			"""
+			using AZ.Generator.Functional.Attributes;
+			
+			namespace Foo.Bar.Baz;
+			
+			public class ContainingType
+			{
+				[DiscriminatedUnion]
+				private abstract partial class NestedUnion;
+			
+				private sealed class NestedImplementation : NestedUnion;
+			}
+			""";
+
+		await TestHelper.RecompileGeneratedVerify<DiscriminatedUnionGenerator>(code);
+	}
+
+	#endregion
 }

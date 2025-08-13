@@ -15,10 +15,16 @@ public sealed class DiscriminatedUnionGenerator : IIncrementalGenerator
 
 		var syntaxProvider = context.SyntaxProvider
 			.ForAttributeWithMetadataName($"{Namespaces.Attributes}.{Attributes.DiscriminatedUnion}", Filter, Transform)
-			.Select((tuple, ct) => Parser.Parse(tuple.Node, tuple.SemanticModel, ct))
+			.Select((tuple, ct) =>
+			{
+				var parser = new Parser();
+				var spec = parser.Parse(tuple.Node, tuple.SemanticModel, ct);
+				var diagnostics = parser.Diagnostics.ToImmutableEquatableArray();
+				return (spec, diagnostics);
+			})
 			.WithTrackingName(TrackingNames.DiscriminatedUnion);
 
-		context.RegisterSourceOutput(syntaxProvider, Generate);
+		context.RegisterSourceOutput(syntaxProvider, ReportDiagnosticsAndEmit);
 	}
 
 	private static bool Filter(SyntaxNode node, CancellationToken _) => node is ClassDeclarationSyntax or RecordDeclarationSyntax;
@@ -44,8 +50,16 @@ public sealed class DiscriminatedUnionGenerator : IIncrementalGenerator
 
 	#region Generate
 
-	private void Generate(SourceProductionContext context, DiscriminatedUnionSpec? spec)
+	private void ReportDiagnosticsAndEmit(SourceProductionContext context, (DiscriminatedUnionSpec? Spec, ImmutableEquatableArray<Diagnostic> Diagnostics) input)
 	{
+		var spec = input.Spec;
+		var diagnostics = input.Diagnostics;
+
+		foreach (var diagnostic in diagnostics)
+		{
+			context.ReportDiagnostic(diagnostic);
+		}
+
 		if (spec is null)
 		{
 			return;

@@ -1,8 +1,10 @@
 ﻿namespace AZ.Generator.Functional.Specs;
 
-internal static class Parser
+internal sealed class Parser
 {
-	public static DiscriminatedUnionSpec? Parse(TypeDeclarationSyntax declaration, SemanticModel semanticModel, CancellationToken ct)
+	public List<Diagnostic> Diagnostics { get; } = [];
+
+	public DiscriminatedUnionSpec? Parse(TypeDeclarationSyntax declaration, SemanticModel semanticModel, CancellationToken ct)
 	{
 		var type = semanticModel.GetDeclaredSymbol(declaration, ct);
 

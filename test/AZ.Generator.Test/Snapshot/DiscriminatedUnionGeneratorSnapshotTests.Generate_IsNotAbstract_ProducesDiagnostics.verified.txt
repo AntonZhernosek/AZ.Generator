@@ -1,0 +1,23 @@
+﻿{
+  Diagnostics: [
+    {
+      Location: /*
+[DiscriminatedUnion]
+public class TestUnion;
+             ^^^^^^^^^
+public sealed class TestImplementation1 : TestUnion;
+*/
+ : (5,13)-(5,22),
+      Message: Class TestUnion is marked as a discriminated union, but is not abstract,
+      Severity: Error,
+      Descriptor: {
+        Id: DU0001,
+        Title: Type is not abstract,
+        MessageFormat: Class {0} is marked as a discriminated union, but is not abstract,
+        Category: Discriminated Union,
+        DefaultSeverity: Error,
+        IsEnabledByDefault: true
+      }
+    }
+  ]
+}

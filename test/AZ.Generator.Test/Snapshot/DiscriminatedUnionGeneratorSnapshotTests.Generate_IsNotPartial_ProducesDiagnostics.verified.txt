@@ -1,0 +1,23 @@
+﻿{
+  Diagnostics: [
+    {
+      Location: /*
+	[DiscriminatedUnion]
+	private abstract class NestedUnion;
+                        ^^^^^^^^^^^
+
+*/
+ : (7,24)-(7,35),
+      Message: Private class NestedUnion is marked as a discriminated union, and should be partial,
+      Severity: Error,
+      Descriptor: {
+        Id: DU0003,
+        Title: Type is not partial,
+        MessageFormat: Private class {0} is marked as a discriminated union, and should be partial,
+        Category: Discriminated Union,
+        DefaultSeverity: Error,
+        IsEnabledByDefault: true
+      }
+    }
+  ]
+}

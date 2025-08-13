@@ -1,0 +1,11 @@
+﻿global using AZ.Generator.Functional.Constants;
+global using AZ.Generator.Functional.Generators;
+global using AZ.Generator.Test.Extensions;
+global using AZ.Generator.Test.Verify;
+global using Microsoft.CodeAnalysis;
+global using Microsoft.CodeAnalysis.CSharp;
+global using Microsoft.CodeAnalysis.Emit;
+global using System.Collections;
+global using System.Collections.Immutable;
+global using System.Reflection;
+global using System.Runtime.CompilerServices;

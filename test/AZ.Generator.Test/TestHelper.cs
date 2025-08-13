@@ -13,13 +13,6 @@ public static class TestHelper
 		return Verifier.Verify(driver, GlobalSettings.VerifySettings);
 	}
 
-	public static Task Verify<T>(string text)
-		where T : IIncrementalGenerator, new()
-	{
-		var (_, driver) = VerifyInternal<T>(text);
-		return Verifier.Verify(driver, GlobalSettings.VerifySettings);
-	}
-
 	private static (CSharpCompilation Compilation, GeneratorDriver Driver) VerifyInternal<T>(string text)
 		where T : IIncrementalGenerator, new()
 	{

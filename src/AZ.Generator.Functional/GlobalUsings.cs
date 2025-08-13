@@ -1,4 +1,5 @@
 ﻿global using AZ.Generator.Functional.Constants;
+global using AZ.Generator.Functional.Diagnostics;
 global using AZ.Generator.Functional.Extensions;
 global using AZ.Generator.Functional.Specs;
 global using Microsoft.CodeAnalysis;
@@ -6,5 +7,4 @@ global using Microsoft.CodeAnalysis.CSharp;
 global using Microsoft.CodeAnalysis.CSharp.Syntax;
 global using Microsoft.CodeAnalysis.Text;
 global using SourceGenerators;
-global using System.Diagnostics.CodeAnalysis;
 global using System.Text;

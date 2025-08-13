@@ -13,17 +13,40 @@ internal sealed class Parser
 			return null;
 		}
 
+		if (!type.IsAbstract)
+		{
+			Diagnostics.Add(DiscriminatedUnionDiagnostics.ShouldBeAbstract(type));
+		}
+
+		if (type.DeclaredAccessibility.IsPrivateAccessibility() && !type.IsPartial())
+		{
+			Diagnostics.Add(DiscriminatedUnionDiagnostics.ShouldBePartial(type));
+		}
+
 		var classOrRecord = type.ClassOrRecordDeclaration();
 
 		var implementationSymbols = type.IsNestedType() ? type.GetImplementationsInContainingType() : type.GetImplementationsInContainingNamespace();
 		var implementations = implementationSymbols.Count == 0 ? ImmutableEquatableArray<UnionImplementationSpec>.Empty : implementationSymbols.Select(ToImplementationSpec).ToImmutableEquatableArray();
 
+		if (implementations.Count == 0)
+		{
+			Diagnostics.Add(DiscriminatedUnionDiagnostics.ShouldHaveImplementations(type));
+		}
+
 		var containingTypeSymbols = type.GetContainingTypes();
 		var containingTypes = containingTypeSymbols.Count == 0 ? ImmutableEquatableArray<ContainingTypeSpec>.Empty : containingTypeSymbols.Select(ToContainingTypeSpec).ToImmutableEquatableArray();
 
+		if (type.DeclaredAccessibility.IsPrivateAccessibility())
+		{
+			foreach (var containingType in containingTypeSymbols.Where(x => !x.IsPartial()))
+			{
+				Diagnostics.Add(DiscriminatedUnionDiagnostics.ShouldBePartialContainingType(containingType));
+			}
+		}
+
 		var typeParameters = GetTypeParameters(type);
 
-		return new DiscriminatedUnionSpec()
+		return Diagnostics.Count != 0 ? null : new DiscriminatedUnionSpec()
 		{
 			DeclarationType = ClassOrRecord(type),
 			Name = type.GetName(),
@@ -88,7 +111,7 @@ internal sealed class Parser
 	public static ClassOrRecord ClassOrRecord(ITypeSymbol type) => type.IsRecord ? Specs.ClassOrRecord.Record : Specs.ClassOrRecord.Class;
 
 	static string GetNameWithContainingTypes(INamedTypeSymbol type, List<INamedTypeSymbol> containingTypes) => 
-		string.Join(string.Empty, containingTypes.Select(x => x.Name).Append(type.Name));
+		containingTypes.Select(x => x.Name).Append(type.Name).Join(string.Empty);
 
 	private static string GetVariableName(INamedTypeSymbol type) => $"__{type.Name}";
 

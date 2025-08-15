@@ -7,7 +7,7 @@ public class ContainingType
              ^^^^^^^^^^^^^^
 {
 */
- : (4,13)-(4,27),
+ file0.cs: (4,13)-(4,27),
       Message: Private class ContainingType is marked as a discriminated union inside of a containing type, and all containing types should be partial,
       Severity: Error,
       Descriptor: {

@@ -7,7 +7,7 @@
                         ^^^^^^^^^^^
 
 */
- : (7,24)-(7,35),
+ file0.cs: (7,24)-(7,35),
       Message: Private class NestedUnion is marked as a discriminated union, and should be partial,
       Severity: Error,
       Descriptor: {

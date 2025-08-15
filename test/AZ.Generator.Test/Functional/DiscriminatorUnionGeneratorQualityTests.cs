@@ -1,4 +1,6 @@
-﻿namespace AZ.Generator.Test.Functional;
+﻿using TrackingNames = AZ.Generator.Functional.Constants.TrackingNames;
+
+namespace AZ.Generator.Test.Functional;
 
 public sealed class DiscriminatorUnionGeneratorQualityTests
 {

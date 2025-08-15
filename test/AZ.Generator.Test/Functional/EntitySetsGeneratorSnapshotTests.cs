@@ -1,0 +1,233 @@
+﻿namespace AZ.Generator.Test.Functional;
+
+public sealed class EntitySetsGeneratorSnapshotTests
+{
+	#region Happy paths
+
+	[Fact]
+	public async Task Generate_GenerateValidSets_Correct()
+	{
+		var dbContext =
+			"""
+			using AZ.Generator.EntityFrameworkCore.Attributes;
+			using Microsoft.EntityFrameworkCore;
+			using Foo.Entities;
+
+			namespace Foo;
+
+			[EntitySets(typeof(EntityOne))]
+			public sealed partial class TestDbContext : DbContext;
+			""";
+
+		var entities =
+			"""
+			namespace Foo.Entities;
+
+			public sealed class EntityOne;
+			public sealed class EntityTwo;
+			""";
+
+		await TestHelper.RecompileGeneratedVerify<EntitySetsGenerator>(dbContext, entities);
+	}
+
+	[Fact]
+	public async Task Generate_GenerateVariousTypes_PicksOnlyClasses()
+	{
+		var dbContext =
+			"""
+			using AZ.Generator.EntityFrameworkCore.Attributes;
+			using Microsoft.EntityFrameworkCore;
+			using Foo.Entities;
+
+			namespace Foo;
+
+			[EntitySets(typeof(EntityOne))]
+			public sealed partial class TestDbContext : DbContext;
+			""";
+
+		var entities =
+			"""
+			namespace Foo.Entities;
+
+			public sealed class EntityOne;
+			public sealed record EntityTwo;
+			public struct EntityThree;
+			""";
+
+		await TestHelper.RecompileGeneratedVerify<EntitySetsGenerator>(dbContext, entities);
+	}
+
+	[Fact]
+	public async Task Generate_GenerateVariousAccessibilities_GeneratesPublicInternalCorrectly()
+	{
+		var dbContext =
+			"""
+			using AZ.Generator.EntityFrameworkCore.Attributes;
+			using Microsoft.EntityFrameworkCore;
+			using Foo.Entities;
+
+			namespace Foo;
+
+			[EntitySets(typeof(EntityOne))]
+			public sealed partial class TestDbContext : DbContext;
+			""";
+
+		var entities =
+			"""
+			namespace Foo.Entities;
+
+			public sealed class EntityOne;
+			internal sealed class EntityTwo;
+			file sealed class EntityThree;
+			""";
+
+		await TestHelper.RecompileGeneratedVerify<EntitySetsGenerator>(dbContext, entities);
+	}
+
+	[Fact]
+	public async Task Generate_EntityIsIgnored_Correct()
+	{
+		var dbContext =
+			"""
+			using AZ.Generator.EntityFrameworkCore.Attributes;
+			using Microsoft.EntityFrameworkCore;
+			using Foo.Entities;
+
+			namespace Foo;
+
+			[EntitySets(typeof(EntityOne))]
+			public sealed partial class TestDbContext : DbContext;
+			""";
+
+		var entities =
+			"""
+			using AZ.Generator.EntityFrameworkCore.Attributes;
+
+			namespace Foo.Entities;
+
+			[EntitySetConfig(Ignore = true)]
+			public sealed class EntityOne;
+			public sealed class EntityTwo;
+			""";
+
+		await TestHelper.RecompileGeneratedVerify<EntitySetsGenerator>(dbContext, entities);
+	}
+
+	[Fact]
+	public async Task Generate_CustomDbSetNames_Correct()
+	{
+		var dbContext =
+			"""
+			using AZ.Generator.EntityFrameworkCore.Attributes;
+			using Microsoft.EntityFrameworkCore;
+			using Foo.Entities;
+
+			namespace Foo;
+
+			[EntitySets(typeof(EntityOne))]
+			public sealed partial class TestDbContext : DbContext;
+			""";
+
+		var entities =
+			"""
+			using AZ.Generator.EntityFrameworkCore.Attributes;
+
+			namespace Foo.Entities;
+
+			[EntitySetConfig(Name = "MyEntityOneSet")]
+			public sealed class EntityOne;
+			[EntitySetConfig(Name = "MyEntityTwoSet")]
+			public sealed class EntityTwo;
+			""";
+
+		await TestHelper.RecompileGeneratedVerify<EntitySetsGenerator>(dbContext, entities);
+	}
+
+	#endregion
+
+	#region Diagnostics
+
+	[Fact]
+	public async Task Generate_DoesNotInheritDbContext_ProducesDiagnostic()
+	{
+		var dbContext =
+			"""
+			using AZ.Generator.EntityFrameworkCore.Attributes;
+			using Microsoft.EntityFrameworkCore;
+			using Foo.Entities;
+
+			namespace Foo;
+
+			[EntitySets(typeof(EntityOne))]
+			public sealed partial class TestDbContext;
+			""";
+
+		var entities =
+			"""
+			namespace Foo.Entities;
+
+			public sealed class EntityOne;
+			public sealed class EntityTwo;
+			""";
+
+		await TestHelper.RecompileGeneratedVerify<EntitySetsGenerator>(dbContext, entities);
+	}
+
+	[Fact]
+	public async Task Generate_IsNotPartial_ProducesDiagnostic()
+	{
+		var dbContext =
+			"""
+			using AZ.Generator.EntityFrameworkCore.Attributes;
+			using Microsoft.EntityFrameworkCore;
+			using Foo.Entities;
+
+			namespace Foo;
+
+			[EntitySets(typeof(EntityOne))]
+			public sealed class TestDbContext : DbContext;
+			""";
+
+		var entities =
+			"""
+			namespace Foo.Entities;
+
+			public sealed class EntityOne;
+			public sealed class EntityTwo;
+			""";
+
+		await TestHelper.RecompileGeneratedVerify<EntitySetsGenerator>(dbContext, entities);
+	}
+
+	[Fact]
+	public async Task Generate_HasNoEntities_ProducesDiagnostic()
+	{
+		var dbContext =
+			"""
+			using AZ.Generator.EntityFrameworkCore.Attributes;
+			using Microsoft.EntityFrameworkCore;
+			using Foo.Entities;
+
+			namespace Foo;
+
+			[EntitySets(typeof(EntityOne))]
+			public sealed partial class TestDbContext : DbContext;
+			""";
+
+		var entities =
+			"""
+			using AZ.Generator.EntityFrameworkCore.Attributes;
+
+			namespace Foo.Entities;
+
+			[EntitySetConfig(Ignore = true)]
+			public sealed class EntityOne;
+			[EntitySetConfig(Ignore = true)]
+			public sealed class EntityTwo;
+			""";
+
+		await TestHelper.RecompileGeneratedVerify<EntitySetsGenerator>(dbContext, entities);
+	}
+
+	#endregion
+}

@@ -14,6 +14,11 @@ internal static class EntitySetsDiagnostics
 		location: type.Locations.FirstOrDefault(),
 		messageArgs: type.Name);
 
+	public static Diagnostic ShouldHaveEntities(INamedTypeSymbol type, INamespaceSymbol containingNamespace) => Diagnostic.Create(
+		descriptor: ShouldHaveEntitiesDescriptor,
+		location: type.Locations.FirstOrDefault(),
+		messageArgs: containingNamespace.ToDisplayString());
+
 	#region Descriptors
 
 	private static readonly DiagnosticDescriptor ShouldInheritDbContextDescriptor = new(
@@ -32,6 +37,14 @@ internal static class EntitySetsDiagnostics
 		defaultSeverity: DiagnosticSeverity.Error,
 		isEnabledByDefault: true);
 
+	private static readonly DiagnosticDescriptor ShouldHaveEntitiesDescriptor = new(
+		id: DiagnosticErrors.ShouldHaveEntities,
+		title: "Containing namespace has no entities",
+		messageFormat: "Containing namespace {0} has no entities to generate sets from",
+		category: Category,
+		defaultSeverity: DiagnosticSeverity.Error,
+		isEnabledByDefault: true);
+
 	#endregion
 }
 
@@ -41,4 +54,5 @@ file static class DiagnosticErrors
 
 	public const string ShouldInheritDbContext = $"{Prefix}0001";
 	public const string ShouldBePartial = $"{Prefix}0002";
+	public const string ShouldHaveEntities = $"{Prefix}0003";
 }

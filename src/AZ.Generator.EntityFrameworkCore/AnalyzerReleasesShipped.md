@@ -4,3 +4,4 @@ Rule Id | Category | Severity | Notes
 --------|----------|----------|-------
 ES0001  | Usage	   | Error    | Type should inherit from DbContext
 ES0002  | Usage	   | Error    | Type should be partial
+ES0003  | Usage	   | Error    | Containing namespace has no entities

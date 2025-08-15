@@ -38,9 +38,9 @@ internal static class Attributes
 		[System.AttributeUsage(System.AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
 		internal sealed class {{EntitySetConfig}} : System.Attribute
 		{
-			public string? {{EntitySetConfig_Name}} { get; set; }
+			public string {{EntitySetConfig_Name}} { get; set; } = string.Empty;
 
-			public bool? {{EntitySetConfig_Ignore}} { get; set; }
+			public bool {{EntitySetConfig_Ignore}} { get; set; } = false;
 		}
 
 		""";

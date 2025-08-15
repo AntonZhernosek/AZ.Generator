@@ -2,6 +2,8 @@
 
 internal static class TypeSymbolExtensions
 {
+	public static string GetFullyQualifiedName(this ITypeSymbol type) => type.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat);
+
 	public static string GetFullNamespace(this ITypeSymbol type) => type.ContainingNamespace.IsGlobalNamespace ? string.Empty : type.GetNamespaces().Reverse().Join(".");
 
 	public static IEnumerable<string> GetNamespaces(this ITypeSymbol type)
@@ -22,6 +24,7 @@ internal static class TypeSymbolExtensions
 	}
 
 	public static AttributeData GetAttribute(this ITypeSymbol type, string attribute) => type.GetAttributes().First(att => att.AttributeClass?.Name == attribute);
+	public static AttributeData? GetAttributeOrDefault(this ITypeSymbol type, string attribute) => type.GetAttributes().FirstOrDefault(att => att.AttributeClass?.Name == attribute);
 
 	public static bool IsPartial(this ITypeSymbol type)
 	{

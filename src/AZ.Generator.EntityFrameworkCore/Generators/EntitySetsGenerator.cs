@@ -85,14 +85,26 @@ public sealed class EntitySetsGenerator : IIncrementalGenerator
 
 			partial class {{dbContextSpec.Name}}
 			{
+			""";
+		sb.AppendLine(classDeclaration);
 
+		foreach (var entity in spec.Entities)
+		{
+			var dbSet =
+				$$"""
+					{{entity.Accessibility.ToKeyword()}} Microsoft.EntityFrameworkCore.DbSet<{{entity.FullyQualifiedName}}> {{entity.DbSetName}} { get; private set; }
+				""";
+			sb.AppendLine(dbSet);
+		}
+
+		var classClosure =
+			"""
 			}
 
 			""";
+		sb.AppendLine(classClosure);
 
-		sb.AppendLine(classDeclaration);
-
-		var hint = $"EntitySets-{dbContextSpec.Name}-{spec.EntitiesNamespace.Replace(".", string.Empty)}.g.cs";
+		var hint = $"EntitySets-{dbContextSpec.Name}-{spec.EntitiesNamespace}.g.cs";
 		var sourceText = SourceText.From(sb.ToString(), Encoding.UTF8);
 
 		context.AddSource(hint, sourceText);

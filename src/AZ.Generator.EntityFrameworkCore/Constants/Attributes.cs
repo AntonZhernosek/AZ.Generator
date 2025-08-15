@@ -20,8 +20,11 @@ internal static class Attributes
 		[System.AttributeUsage(System.AttributeTargets.Class, AllowMultiple = true, Inherited = false)]
 		internal sealed class {{EntitySets}} : System.Attribute
 		{
-			public {{EntitySets}}(Type containingType)
+			public System.Type ContainingType { get; }
+
+			public {{EntitySets}}(System.Type containingType)
 			{
+				ContainingType = containingType;
 			}
 		}
 

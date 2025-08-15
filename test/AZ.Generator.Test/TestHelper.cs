@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text;
+using System.Threading.Tasks;
 
 namespace AZ.Generator.Test;
 
@@ -139,7 +140,7 @@ public static class TestHelper
 
 	private static CSharpCompilation GenerateCompilation(List<string> texts)
 	{
-		var syntaxTrees = texts.Select(text => CSharpSyntaxTree.ParseText(text));
+		var syntaxTrees = texts.Select((text, index) => CSharpSyntaxTree.ParseText(text, path: $"file{index}.cs", encoding: Encoding.UTF8));
 
 		var references = AppDomain.CurrentDomain.GetAssemblies()
 			.Where(assembly => !assembly.IsDynamic && !string.IsNullOrWhiteSpace(assembly.Location))

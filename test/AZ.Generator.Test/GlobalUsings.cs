@@ -1,4 +1,5 @@
-﻿global using AZ.Generator.Functional.Constants;
+﻿global using AZ.Generator.EntityFrameworkCore.Generators;
+global using AZ.Generator.Functional.Constants;
 global using AZ.Generator.Functional.Generators;
 global using AZ.Generator.Test.Extensions;
 global using AZ.Generator.Test.Verify;

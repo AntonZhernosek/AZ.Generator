@@ -63,6 +63,16 @@ internal sealed class EntitySetsParser
 
 		static bool IsIncluded(INamedTypeSymbol type)
 		{
+			if (!type.IsReferenceType)
+			{
+				return false;
+			}
+
+			if (type.IsFileLocal)
+			{
+				return false;
+			}
+
 			if (type.DeclaredAccessibility is not Accessibility.Public and not Accessibility.Internal)
 			{
 				return false;

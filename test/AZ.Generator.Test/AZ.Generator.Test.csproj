@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\AZ.Generator.EntityFrameworkCore\AZ.Generator.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\..\src\AZ.Generator.Functional\AZ.Generator.Functional.csproj" />
   </ItemGroup>
   

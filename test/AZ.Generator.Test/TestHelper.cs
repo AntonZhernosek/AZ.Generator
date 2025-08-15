@@ -1,11 +1,13 @@
-﻿namespace AZ.Generator.Test;
+﻿using System.Threading.Tasks;
+
+namespace AZ.Generator.Test;
 
 public static class TestHelper
 {
-	public static Task RecompileGeneratedVerify<T>(string text)
+	public static Task RecompileGeneratedVerify<T>(params List<string> texts)
 		where T : IIncrementalGenerator, new()
 	{
-		var (compilation, driver) = VerifyInternal<T>(text);
+		var (compilation, driver) = VerifyInternal<T>(texts);
 		var secondCompilation = compilation.AddSyntaxTrees(driver.GetRunResult().GeneratedTrees);
 
 		AssertCompiles(secondCompilation);
@@ -13,10 +15,10 @@ public static class TestHelper
 		return Verifier.Verify(driver, GlobalSettings.VerifySettings);
 	}
 
-	private static (CSharpCompilation Compilation, GeneratorDriver Driver) VerifyInternal<T>(string text)
+	private static (CSharpCompilation Compilation, GeneratorDriver Driver) VerifyInternal<T>(List<string> texts)
 		where T : IIncrementalGenerator, new()
 	{
-		var compilation = GenerateCompilation(in text);
+		var compilation = GenerateCompilation(texts);
 
 		var generator = new T();
 
@@ -27,10 +29,10 @@ public static class TestHelper
 		return (compilation, driver);
 	}
 
-	public static void VerifyConsecutiveRuns<T>(in string text, params string[] trackingNames)
+	public static Task VerifyConsecutiveRuns<T>(List<string> texts, params string[] trackingNames)
 		where T : IIncrementalGenerator, new()
 	{
-		var compilation = GenerateCompilation(in text);
+		var compilation = GenerateCompilation(texts);
 		var compilation2 = compilation.Clone();
 
 		var generator = new T();
@@ -44,6 +46,8 @@ public static class TestHelper
 		var secondRunResult = driver.RunGenerators(compilation2).GetRunResult();
 
 		AssertRunsEqual(firstRunResult, secondRunResult, trackingNames);
+
+		return Verifier.Verify(driver, GlobalSettings.VerifySettings);
 	}
 
 	private static void AssertRunsEqual(GeneratorDriverRunResult runResult1, GeneratorDriverRunResult runResult2, string[] trackingNames)
@@ -133,9 +137,9 @@ public static class TestHelper
 		}
 	}
 
-	private static CSharpCompilation GenerateCompilation(in string text)
+	private static CSharpCompilation GenerateCompilation(List<string> texts)
 	{
-		var syntaxTree = CSharpSyntaxTree.ParseText(text);
+		var syntaxTrees = texts.Select(text => CSharpSyntaxTree.ParseText(text));
 
 		var references = AppDomain.CurrentDomain.GetAssemblies()
 			.Where(assembly => !assembly.IsDynamic && !string.IsNullOrWhiteSpace(assembly.Location))
@@ -147,7 +151,7 @@ public static class TestHelper
 
 		var compilation = CSharpCompilation.Create(
 			assemblyName: "Tests",
-			syntaxTrees: [syntaxTree],
+			syntaxTrees: syntaxTrees,
 			references: references,
 			options: options);
 

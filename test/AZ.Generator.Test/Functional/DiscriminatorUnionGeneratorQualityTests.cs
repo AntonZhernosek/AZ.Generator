@@ -3,11 +3,11 @@
 public sealed class DiscriminatorUnionGeneratorQualityTests
 {
 	[Fact]
-	public void Generate_ValidInput_GenerateExtensionsClass_RunsEqualAndCache()
+	public async Task Generate_ValidInput_GenerateExtensionsClass_RunsEqualAndCache()
 	{
 		var code =
 			"""
-			using AZSoft.Generator.Functional.Attributes;
+			using AZ.Generator.Functional.Attributes;
 
 			namespace Foo.Bar.Baz;
 
@@ -20,6 +20,6 @@ public sealed class DiscriminatorUnionGeneratorQualityTests
 			public sealed class TestImplementation2 : TestUnion;
 			""";
 
-		TestHelper.VerifyConsecutiveRuns<DiscriminatedUnionGenerator>(code, TrackingNames.DiscriminatedUnion);
+		await TestHelper.VerifyConsecutiveRuns<DiscriminatedUnionGenerator>([code], TrackingNames.DiscriminatedUnion);
 	}
 }

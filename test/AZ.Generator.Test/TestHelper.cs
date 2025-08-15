@@ -1,7 +1,4 @@
-﻿using System.Text;
-using System.Threading.Tasks;
-
-namespace AZ.Generator.Test;
+﻿namespace AZ.Generator.Test;
 
 public static class TestHelper
 {

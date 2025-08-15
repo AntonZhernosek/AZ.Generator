@@ -1,5 +1,4 @@
 ﻿global using AZ.Generator.EntityFrameworkCore.Generators;
-global using AZ.Generator.Functional.Constants;
 global using AZ.Generator.Functional.Generators;
 global using AZ.Generator.Test.Extensions;
 global using AZ.Generator.Test.Verify;
@@ -10,3 +9,4 @@ global using System.Collections;
 global using System.Collections.Immutable;
 global using System.Reflection;
 global using System.Runtime.CompilerServices;
+global using System.Text;

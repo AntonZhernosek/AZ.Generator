@@ -2,7 +2,7 @@
 
 namespace AZ.Generator.Test.Functional;
 
-public sealed class DiscriminatorUnionGeneratorQualityTests
+public sealed class DiscriminatedUnionGeneratorQualityTests
 {
 	[Fact]
 	public async Task Generate_ValidInput_GenerateExtensionsClass_RunsEqualAndCache()

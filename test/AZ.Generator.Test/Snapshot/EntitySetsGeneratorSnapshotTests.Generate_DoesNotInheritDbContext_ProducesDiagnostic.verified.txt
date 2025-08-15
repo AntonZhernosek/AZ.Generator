@@ -1,0 +1,22 @@
+﻿{
+  Diagnostics: [
+    {
+      Location: /*
+[EntitySets(typeof(EntityOne))]
+public sealed partial class TestDbContext;
+                            ^^^^^^^^^^^^^
+*/
+ file0.cs: (7,28)-(7,41),
+      Message: Class TestDbContext is marked as implementing entity sets, but does not inherit from DbContext,
+      Severity: Error,
+      Descriptor: {
+        Id: ES0001,
+        Title: Type should inherit from DbContext,
+        MessageFormat: Class {0} is marked as implementing entity sets, but does not inherit from DbContext,
+        Category: Entity sets,
+        DefaultSeverity: Error,
+        IsEnabledByDefault: true
+      }
+    }
+  ]
+}

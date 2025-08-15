@@ -1,0 +1,22 @@
+﻿{
+  Diagnostics: [
+    {
+      Location: /*
+[EntitySets(typeof(EntityOne))]
+public sealed class TestDbContext : DbContext;
+                    ^^^^^^^^^^^^^
+*/
+ file0.cs: (7,20)-(7,33),
+      Message: Class TestDbContext is marked as implementing entity sets, and should be partial,
+      Severity: Error,
+      Descriptor: {
+        Id: ES0002,
+        Title: Type should be partial,
+        MessageFormat: Class {0} is marked as implementing entity sets, and should be partial,
+        Category: Entity sets,
+        DefaultSeverity: Error,
+        IsEnabledByDefault: true
+      }
+    }
+  ]
+}

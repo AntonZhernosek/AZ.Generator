@@ -7,7 +7,7 @@ public class TestUnion;
              ^^^^^^^^^
 public sealed class TestImplementation1 : TestUnion;
 */
- : (5,13)-(5,22),
+ file0.cs: (5,13)-(5,22),
       Message: Class TestUnion is marked as a discriminated union, but is not abstract,
       Severity: Error,
       Descriptor: {

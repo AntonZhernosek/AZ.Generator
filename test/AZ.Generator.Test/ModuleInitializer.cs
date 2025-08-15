@@ -7,5 +7,13 @@ public static class ModuleInitializer
 	{
 		VerifyDiffPlex.Initialize();
 		VerifySourceGenerators.Initialize();
+
+		LoadRequiredAssemblies();
+	}
+
+	// TestHelper loads all assemblies from the current appdomain to generate a compilation. Use to load some additional assemblies we may need as references
+	private static void LoadRequiredAssemblies()
+	{
+		_ = typeof(Microsoft.EntityFrameworkCore.DbContext).Assembly;
 	}
 }

@@ -6,7 +6,7 @@
 public abstract class TestUnion;
                       ^^^^^^^^^
 */
- : (5,22)-(5,31),
+ file0.cs: (5,22)-(5,31),
       Message: Class TestUnion is marked as a discriminated union, but has no implementations,
       Severity: Error,
       Descriptor: {

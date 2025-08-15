@@ -1,0 +1,10 @@
+﻿global using AZ.Generator.EntityFrameworkCore.Constants;
+global using AZ.Generator.EntityFrameworkCore.Diagnostics;
+global using AZ.Generator.EntityFrameworkCore.Extensions;
+global using AZ.Generator.EntityFrameworkCore.Specs;
+global using Microsoft.CodeAnalysis;
+global using Microsoft.CodeAnalysis.CSharp;
+global using Microsoft.CodeAnalysis.CSharp.Syntax;
+global using Microsoft.CodeAnalysis.Text;
+global using SourceGenerators;
+global using System.Text;

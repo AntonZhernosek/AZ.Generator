@@ -1,6 +1,6 @@
 ﻿using TrackingNames = AZ.Generator.EntityFrameworkCore.Constants.TrackingNames;
 
-namespace AZ.Generator.Test.Functional;
+namespace AZ.Generator.Test.EntityFrameworkCore;
 
 public sealed class EntitySetsGeneratorQualityTests
 {

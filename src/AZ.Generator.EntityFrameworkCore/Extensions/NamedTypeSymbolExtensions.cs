@@ -21,4 +21,7 @@ internal static class NamedTypeSymbolExtensions
 
 	public static bool ImplementsEntityTypeConfiguration(this INamedTypeSymbol type) => type.AllInterfaces
 		.Any(x => x.OriginalDefinition.ToDisplayString().Equals("Microsoft.EntityFrameworkCore.IEntityTypeConfiguration<TEntity>"));
+
+	public static bool HasParameterlessConstructor(this INamedTypeSymbol type) => type.Constructors
+		.Any(x => x.Parameters.Length == 0 && x.DeclaredAccessibility is Accessibility.Public or Accessibility.Internal);
 }

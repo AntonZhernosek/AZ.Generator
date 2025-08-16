@@ -82,6 +82,16 @@ internal sealed class EntityConfigurationsParser
 				return false;
 			}
 
+			if (type.IsAbstract)
+			{
+				return false;
+			}
+
+			if (!type.HasParameterlessConstructor())
+			{
+				return false;
+			}
+
 			if (!type.ImplementsEntityTypeConfiguration())
 			{
 				return false;

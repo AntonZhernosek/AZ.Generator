@@ -4,11 +4,11 @@ internal static class Attributes
 {
 	public const string EntitySets = "EntitySetsAttribute";
 
-	public const string EntitySetConfig = "EntitySetConfigAttribute";
+	public const string EntitySet = "EntitySetAttribute";
 
-	internal const string EntitySetConfig_Name = "Name";
+	internal const string EntitySet_Name = "Name";
 
-	internal const string EntitySetConfig_Ignore = "Ignore";
+	internal const string EntitySet_Ignore = "Ignore";
 
 	internal const string EntitySetsDefinition =
 		$$"""
@@ -39,11 +39,11 @@ internal static class Attributes
 		
 		[Microsoft.CodeAnalysis.EmbeddedAttribute]
 		[System.AttributeUsage(System.AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
-		internal sealed class {{EntitySetConfig}} : System.Attribute
+		internal sealed class {{EntitySet}} : System.Attribute
 		{
-			public string {{EntitySetConfig_Name}} { get; set; } = string.Empty;
+			public string {{EntitySet_Name}} { get; set; } = string.Empty;
 
-			public bool {{EntitySetConfig_Ignore}} { get; set; } = false;
+			public bool {{EntitySet_Ignore}} { get; set; } = false;
 		}
 
 		""";

@@ -43,7 +43,7 @@ public sealed class EntitySetsGenerator : IIncrementalGenerator
 		var entitySetConfigText = SourceText.From(Attributes.EntitySetConfigDefinition, Encoding.UTF8);
 
 		context.AddSource($"{Attributes.EntitySets}.g.cs", entitySetsText);
-		context.AddSource($"{Attributes.EntitySetConfig}.g.cs", entitySetConfigText);
+		context.AddSource($"{Attributes.EntitySet}.g.cs", entitySetConfigText);
 	}
 
 	#endregion

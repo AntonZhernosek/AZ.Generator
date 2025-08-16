@@ -81,27 +81,27 @@ internal sealed class EntitySetsParser
 				return false;
 			}
 
-			var attribute = type.GetAttributeOrDefault(Attributes.EntitySetConfig);
+			var attribute = type.GetAttributeOrDefault(Attributes.EntitySet);
 
 			if (attribute is null)
 			{
 				return true;
 			}
 
-			var ignored = (bool)attribute.GetArgumentOrDefault(Attributes.EntitySetConfig_Ignore, false)!;
+			var ignored = (bool)attribute.GetArgumentOrDefault(Attributes.EntitySet_Ignore, false)!;
 			return !ignored;
 		}
 
 		static string GetDbSetName(INamedTypeSymbol type)
 		{
-			var attribute = type.GetAttributeOrDefault(Attributes.EntitySetConfig);
+			var attribute = type.GetAttributeOrDefault(Attributes.EntitySet);
 
 			if (attribute is null)
 			{
 				return type.Name;
 			}
 
-			var attributeOverrideName = (string)attribute.GetArgumentOrDefault(Attributes.EntitySetConfig_Name, type.Name)!;
+			var attributeOverrideName = (string)attribute.GetArgumentOrDefault(Attributes.EntitySet_Name, type.Name)!;
 			return string.IsNullOrWhiteSpace(attributeOverrideName) ? type.Name : attributeOverrideName;
 		}
 	}

@@ -138,7 +138,7 @@ public sealed class EntitySetsGeneratorSnapshotTests
 
 			namespace Foo.Entities;
 
-			[EntitySetConfig(Ignore = true)]
+			[EntitySet(Ignore = true)]
 			public sealed class EntityOne;
 			public sealed class EntityTwo;
 			""";
@@ -167,9 +167,9 @@ public sealed class EntitySetsGeneratorSnapshotTests
 
 			namespace Foo.Entities;
 
-			[EntitySetConfig(Name = "MyEntityOneSet")]
+			[EntitySet(Name = "MyEntityOneSet")]
 			public sealed class EntityOne;
-			[EntitySetConfig(Name = "MyEntityTwoSet")]
+			[EntitySet(Name = "MyEntityTwoSet")]
 			public sealed class EntityTwo;
 			""";
 
@@ -253,9 +253,9 @@ public sealed class EntitySetsGeneratorSnapshotTests
 
 			namespace Foo.Entities;
 
-			[EntitySetConfig(Ignore = true)]
+			[EntitySet(Ignore = true)]
 			public sealed class EntityOne;
-			[EntitySetConfig(Ignore = true)]
+			[EntitySet(Ignore = true)]
 			public sealed class EntityTwo;
 			""";
 

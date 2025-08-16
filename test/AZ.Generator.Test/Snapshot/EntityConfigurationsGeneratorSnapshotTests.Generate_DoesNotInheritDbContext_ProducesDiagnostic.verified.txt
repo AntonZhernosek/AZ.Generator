@@ -1,0 +1,22 @@
+﻿{
+  Diagnostics: [
+    {
+      Location: /*
+[EntityConfigurations(typeof(EntityOneConfiguration))]
+public sealed partial class TestDbContext;
+                            ^^^^^^^^^^^^^
+*/
+ file0.cs: (8,28)-(8,41),
+      Message: Class TestDbContext is marked as implementing entity configurations, but does not inherit from DbContext,
+      Severity: Error,
+      Descriptor: {
+        Id: EC0001,
+        Title: Type should inherit from DbContext,
+        MessageFormat: Class {0} is marked as implementing entity configurations, but does not inherit from DbContext,
+        Category: Entity configurations,
+        DefaultSeverity: Error,
+        IsEnabledByDefault: true
+      }
+    }
+  ]
+}

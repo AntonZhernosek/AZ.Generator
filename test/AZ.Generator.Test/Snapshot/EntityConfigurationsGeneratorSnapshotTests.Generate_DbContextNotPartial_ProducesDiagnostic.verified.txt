@@ -1,0 +1,22 @@
+﻿{
+  Diagnostics: [
+    {
+      Location: /*
+[EntityConfigurations(typeof(EntityOneConfiguration))]
+public sealed class TestDbContext : DbContext;
+                    ^^^^^^^^^^^^^
+*/
+ file0.cs: (8,20)-(8,33),
+      Message: Class TestDbContext is marked as implementing entity configurations, and should be partial,
+      Severity: Error,
+      Descriptor: {
+        Id: EC0002,
+        Title: Type should be partial,
+        MessageFormat: Class {0} is marked as implementing entity configurations, and should be partial,
+        Category: Entity configurations,
+        DefaultSeverity: Error,
+        IsEnabledByDefault: true
+      }
+    }
+  ]
+}

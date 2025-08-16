@@ -1,0 +1,22 @@
+﻿{
+  Diagnostics: [
+    {
+      Location: /*
+[EntityConfigurations(typeof(EntityOneConfiguration))]
+public sealed partial class TestDbContext : DbContext;
+                            ^^^^^^^^^^^^^
+*/
+ file0.cs: (8,28)-(8,41),
+      Message: Failed to find any valid entity configurations for TestDbContext,
+      Severity: Error,
+      Descriptor: {
+        Id: EC0003,
+        Title: No valid entity configurations found,
+        MessageFormat: Failed to find any valid entity configurations for {0},
+        Category: Entity configurations,
+        DefaultSeverity: Error,
+        IsEnabledByDefault: true
+      }
+    }
+  ]
+}

@@ -11,5 +11,12 @@ internal static class AttributeDataExtensions
 		return argument?.Value.Value ?? defaultValue;
 	}
 
-	public static T GetConstructorArgument<T>(this AttributeData attribute, int ordinal) => (T)attribute.ConstructorArguments.ElementAt(ordinal).Value!;
+	public static T[] GetConstructorArgumentEnumerable<T>(this AttributeData attribute, int ordinal)
+	{
+		return attribute.ConstructorArguments
+			.ElementAt(ordinal)
+			.Values
+			.Select(x => (T)x.Value!)
+			.ToArray();
+	}
 }

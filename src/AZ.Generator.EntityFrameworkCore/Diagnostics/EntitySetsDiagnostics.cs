@@ -14,10 +14,10 @@ internal static class EntitySetsDiagnostics
 		location: type.Locations.FirstOrDefault(),
 		messageArgs: type.Name);
 
-	public static Diagnostic ShouldHaveEntities(INamedTypeSymbol type, INamespaceSymbol containingNamespace) => Diagnostic.Create(
+	public static Diagnostic ShouldHaveEntities(INamedTypeSymbol type) => Diagnostic.Create(
 		descriptor: ShouldHaveEntitiesDescriptor,
 		location: type.Locations.FirstOrDefault(),
-		messageArgs: containingNamespace.ToDisplayString());
+		messageArgs: type.Name);
 
 	#region Descriptors
 
@@ -39,8 +39,8 @@ internal static class EntitySetsDiagnostics
 
 	private static readonly DiagnosticDescriptor ShouldHaveEntitiesDescriptor = new(
 		id: DiagnosticErrors.ShouldHaveEntities,
-		title: "Containing namespace has no entities",
-		messageFormat: "Containing namespace {0} has no entities to generate sets from",
+		title: "No valid entities found",
+		messageFormat: "Failed to find any valid entities to create DbSets from for {0}",
 		category: Category,
 		defaultSeverity: DiagnosticSeverity.Error,
 		isEnabledByDefault: true);

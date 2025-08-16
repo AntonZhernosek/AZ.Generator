@@ -17,7 +17,7 @@ internal static class Attributes
 		namespace {{Namespaces.Attributes}};
 		
 		[Microsoft.CodeAnalysis.EmbeddedAttribute]
-		[System.AttributeUsage(System.AttributeTargets.Class, AllowMultiple = true, Inherited = false)]
+		[System.AttributeUsage(System.AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
 		internal sealed class {{EntitySets}} : System.Attribute
 		{
 			public System.Type[] ContainingTypes { get; }

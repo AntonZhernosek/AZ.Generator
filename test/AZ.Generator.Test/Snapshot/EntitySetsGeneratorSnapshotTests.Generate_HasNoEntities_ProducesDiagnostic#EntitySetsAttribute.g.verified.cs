@@ -7,10 +7,10 @@ namespace AZ.Generator.EntityFrameworkCore.Attributes;
 [System.AttributeUsage(System.AttributeTargets.Class, AllowMultiple = true, Inherited = false)]
 internal sealed class EntitySetsAttribute : System.Attribute
 {
-	public System.Type ContainingType { get; }
+	public System.Type[] ContainingTypes { get; }
 
-	public EntitySetsAttribute(System.Type containingType)
+	public EntitySetsAttribute(params System.Type[] containingTypes)
 	{
-		ContainingType = containingType;
+		ContainingTypes = containingTypes;
 	}
 }

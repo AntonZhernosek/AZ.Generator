@@ -7,12 +7,12 @@ public sealed partial class TestDbContext : DbContext;
                             ^^^^^^^^^^^^^
 */
  file0.cs: (7,28)-(7,41),
-      Message: Containing namespace Foo.Entities has no entities to generate sets from,
+      Message: Failed to find any valid entities to create DbSets from for TestDbContext,
       Severity: Error,
       Descriptor: {
         Id: ES0003,
-        Title: Containing namespace has no entities,
-        MessageFormat: Containing namespace {0} has no entities to generate sets from,
+        Title: No valid entities found,
+        MessageFormat: Failed to find any valid entities to create DbSets from for {0},
         Category: Entity sets,
         DefaultSeverity: Error,
         IsEnabledByDefault: true

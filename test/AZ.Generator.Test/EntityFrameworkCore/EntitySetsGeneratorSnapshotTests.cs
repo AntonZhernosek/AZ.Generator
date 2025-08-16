@@ -31,6 +31,39 @@ public sealed class EntitySetsGeneratorSnapshotTests
 	}
 
 	[Fact]
+	public async Task Generate_EntitiesFromMultipleNamespaces_Correct()
+	{
+		var dbContext =
+			"""
+			using AZ.Generator.EntityFrameworkCore.Attributes;
+			using Microsoft.EntityFrameworkCore;
+			using Foo.Entities;
+			using Bar.Entities;
+
+			namespace Foo;
+
+			[EntitySets(typeof(EntityOne), typeof(EntityTwo))]
+			public sealed partial class TestDbContext : DbContext;
+			""";
+
+		var entities =
+			"""
+			namespace Foo.Entities;
+
+			public sealed class EntityOne;
+			""";
+
+		var entities2 =
+			"""
+			namespace Bar.Entities;
+
+			public sealed class EntityTwo;
+			""";
+
+		await TestHelper.RecompileGeneratedVerify<EntitySetsGenerator>(dbContext, entities, entities2);
+	}
+
+	[Fact]
 	public async Task Generate_GenerateVariousTypes_PicksOnlyClasses()
 	{
 		var dbContext =

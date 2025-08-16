@@ -23,17 +23,16 @@ internal sealed class EntitySetsParser
 			Diagnostics.Add(EntitySetsDiagnostics.ShouldBePartial(type));
 		}
 
-		var containingType = type.GetAttribute(Attributes.EntitySets).GetConstructorArgument<INamedTypeSymbol>(0);
-		var entities = GetEntities(containingType);
+		var containingTypes = type.GetAttribute(Attributes.EntitySets).GetConstructorArgumentEnumerable<INamedTypeSymbol>(0);
+		var entities = GetEntities(containingTypes);
 
 		if (entities.Count == 0)
 		{
-			Diagnostics.Add(EntitySetsDiagnostics.ShouldHaveEntities(type, containingType.ContainingNamespace));
+			Diagnostics.Add(EntitySetsDiagnostics.ShouldHaveEntities(type));
 		}
 
 		return Diagnostics.Count != 0 ? null : new EntitySetsSpec()
 		{
-			EntitiesNamespace = containingType.GetFullNamespace(),
 			DbContextSpec = GetDbContextSpec(type),
 			Entities = entities,
 		};
@@ -48,9 +47,13 @@ internal sealed class EntitySetsParser
 		};
 	}
 
-	private ImmutableEquatableArray<EntitySpec> GetEntities(INamedTypeSymbol containingType)
+	private ImmutableEquatableArray<EntitySpec> GetEntities(INamedTypeSymbol[] containingTypes)
 	{
-		return containingType.ContainingNamespace.GetTypeMembers()
+		return containingTypes.Select(x => x.ContainingNamespace)
+			.Distinct(SymbolEqualityComparer.Default)
+			.OfType<INamespaceSymbol>()
+			.SelectMany(x => x.GetTypeMembers())
+			.Distinct(SymbolEqualityComparer.Default)
 			.OfType<INamedTypeSymbol>()
 			.Where(IsIncluded)
 			.Select(type => new EntitySpec()

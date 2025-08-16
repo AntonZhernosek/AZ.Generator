@@ -104,7 +104,7 @@ public sealed class EntitySetsGenerator : IIncrementalGenerator
 			""";
 		sb.AppendLine(classClosure);
 
-		var hint = $"EntitySets-{dbContextSpec.Name}-{spec.EntitiesNamespace}.g.cs";
+		var hint = $"{dbContextSpec.Name}EntitySets.g.cs";
 		var sourceText = SourceText.From(sb.ToString(), Encoding.UTF8);
 
 		context.AddSource(hint, sourceText);

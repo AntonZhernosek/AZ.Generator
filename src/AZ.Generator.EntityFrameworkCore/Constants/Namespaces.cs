@@ -5,4 +5,5 @@ internal static class Namespaces
 	private const string BaseNamespace = $"AZ.Generator.EntityFrameworkCore";
 
 	public const string Attributes = $"{BaseNamespace}.Attributes";
+	public const string Configurations = $"{BaseNamespace}.Configurations";
 }

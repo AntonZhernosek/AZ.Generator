@@ -4,7 +4,7 @@
 namespace AZ.Generator.EntityFrameworkCore.Attributes;
 
 [Microsoft.CodeAnalysis.EmbeddedAttribute]
-[System.AttributeUsage(System.AttributeTargets.Class, AllowMultiple = true, Inherited = false)]
+[System.AttributeUsage(System.AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
 internal sealed class EntitySetsAttribute : System.Attribute
 {
 	public System.Type[] ContainingTypes { get; }

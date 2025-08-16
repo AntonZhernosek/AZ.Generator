@@ -18,4 +18,7 @@ internal static class NamedTypeSymbolExtensions
 
 		return false;
 	}
+
+	public static bool ImplementsEntityTypeConfiguration(this INamedTypeSymbol type) => type.AllInterfaces
+		.Any(x => x.OriginalDefinition.ToDisplayString().Equals("Microsoft.EntityFrameworkCore.IEntityTypeConfiguration<TEntity>"));
 }

@@ -60,6 +60,8 @@ internal sealed class EntityConfigurationsParser
 			{
 				Accessibility = type.DeclaredAccessibility,
 				FullyQualifiedName = type.GetFullyQualifiedName(),
+				Namespace = type.GetFullNamespace(),
+				Name = type.Name,
 			})
 			.ToImmutableEquatableArray();
 

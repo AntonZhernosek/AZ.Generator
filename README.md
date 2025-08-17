@@ -24,12 +24,12 @@ The generator will create a Switch, Match and IsImplementation (for every implem
 TestUnion myUnion = new TestImplementation1();
 
 myUnion.Switch(
-	union1 => Console.WriteLine("First"),
-	union2 => Console.WriteLine("Second"));
+	impl1 => Console.WriteLine("First"),
+	impl2 => Console.WriteLine("Second"));
 
 var stringDescription = myUnion.Match(
-	union1 => "My first implementation",
-	union2 => "My second implementation");
+	impl1 => "My first implementation",
+	impl2 => "My second implementation");
 
 Console.WriteLine(stringDescription);
 

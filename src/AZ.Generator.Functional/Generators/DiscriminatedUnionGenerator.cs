@@ -13,12 +13,26 @@ public sealed class DiscriminatedUnionGenerator : IIncrementalGenerator
 	{
 		context.RegisterPostInitializationOutput(AddAttributes);
 
+		var optionsProvider = context.AnalyzerConfigOptionsProvider
+			.Select((config, ct) =>
+			{
+				var propertyValue = config.GlobalOptions.GetBuildPropertyOrDefault("FunctionGeneratorOptions", string.Empty)!;
+
+				var options = propertyValue.Split([','], StringSplitOptions.RemoveEmptyEntries)
+					.Select(x => x.Trim())
+					.Aggregate(GenerateOptions.None, (state, next) => state |= (GenerateOptions)Enum.Parse(typeof(GenerateOptions), next, ignoreCase: true));
+
+				return options;
+			})
+			.WithTrackingName(TrackingNames.AnalyzerConfig);
+
 		var syntaxProvider = context.SyntaxProvider
 			.ForAttributeWithMetadataName($"{Namespaces.Attributes}.{Attributes.DiscriminatedUnion}", Filter, Transform)
+			.Combine(optionsProvider)
 			.Select((tuple, ct) =>
 			{
 				var parser = new Parser();
-				var spec = parser.Parse(tuple.Node, tuple.SemanticModel, ct);
+				var spec = parser.Parse(tuple.Right, tuple.Left.Node, tuple.Left.SemanticModel, ct);
 				var diagnostics = parser.Diagnostics.ToImmutableEquatableArray();
 				return (spec, diagnostics);
 			})

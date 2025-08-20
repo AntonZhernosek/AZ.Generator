@@ -4,7 +4,7 @@ internal sealed class Parser
 {
 	public List<Diagnostic> Diagnostics { get; } = [];
 
-	public DiscriminatedUnionSpec? Parse(TypeDeclarationSyntax declaration, SemanticModel semanticModel, CancellationToken ct)
+	public DiscriminatedUnionSpec? Parse(GenerateOptions options, TypeDeclarationSyntax declaration, SemanticModel semanticModel, CancellationToken ct)
 	{
 		var type = semanticModel.GetDeclaredSymbol(declaration, ct);
 
@@ -48,6 +48,7 @@ internal sealed class Parser
 
 		return Diagnostics.Count != 0 ? null : new DiscriminatedUnionSpec()
 		{
+			GenerateOptions = options,
 			DeclarationType = ClassOrRecord(type),
 			Name = type.GetName(),
 			NameWithContainingTypes = GetNameWithContainingTypes(type, containingTypeSymbols),

@@ -2,6 +2,7 @@
 
 internal sealed record DiscriminatedUnionSpec
 {
+	public required GenerateOptions GenerateOptions { get; init; }
 	public required ClassOrRecord DeclarationType { get; init; }
 	public required string Name { get; init; }
 	public required string NameWithContainingTypes { get; init; }
